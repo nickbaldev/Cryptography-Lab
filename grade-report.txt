@@ -1,0 +1,24 @@
+Task 1 (random_time.c random_time_attack.c) Totalpoints: 1 
+Score: 1 
+Task 2 Totalpoints: 1 
+Score: 0.5 
+Task 3: Part A Totalpoints: 1 
+Score: 0.75 
+Task 3: Part B Totalpoints: 1 
+Score: 1 
+Task 3 Part C Totalpoints: 1 
+Score: 1 
+Task 3 Part D Totalpoints: 1 
+Score: 1 
+Lab Checkpoint Totalpoints: 1 
+Score: 1 
+Lab Worksheet Totalpoints: 2 
+Score: 1.5 
+Bonus: Task 3 Part E Totalpoints: 1 
+Score: 0 
+Total Points Totalpoints: 10 
+Score: 7.75 
+Lab out of 8% Totalpoints: 8 
+Score: 6.2 
+Notes - Overall 
+IVRA:No indication/mention of using random/non-deterministic/unique/different IV or anything similar to the correct idea (-0.25) | WKT3: Answered OFB encyrption + decryption: parallelizable (-0.25) | OUTB: fopen uses output.bin (-0.5) | NOKT:  keys.txt does not exist (-0.25)Notes - Worksheet 

@@ -1,0 +1,92 @@
+:lang: en
+:source-highlighter: pygments
+:icons: font
+:xrefstyle: short
+
+
+=== https://www.cs.swarthmore.edu/~chaganti/cs88/s24/index.html[CS88] Lab-Worksheet https://www.cs.swarthmore.edu/~chaganti/cs88/f22/labs/lab3.html[Lab3: Symmetric Key Cryptography]
+
+
+==== Task 3 Part B: Launching a Known-Plaintext Attack
+
+* In the OFB Encryption Mode, describe how you would ensure that the known plaintext attack would fail
+
+
+  Use a different random IV for each encryption
+
+
+* Given that you know how the encryption works, based on the figure on the lab page, describe what the decryption formula would be for the two cases shown below. You can assume the following:
+** C(1) refers to the first ciphertext block, C(n) refers to the nth block and C(n-1) to the (n-1)th block and,
+** P(1), P(n) and P(n-1) refer to the first, nth and (n-1)st plaintext block.
+** XOR refers to the bitwise exclusive or operation.
++
+C(1) = P(1) XOR E(1)
++
+C(n) = P(N) XOR E(N)
+
+
+==== Task 3 Part C: Launching a Chosen-Plaintext Attack
+
+* In the CBC Encryption Mode, describe how you would ensure that the chosen plaintext attack would fail.
+
+
+  Use the encryption with the IV and Key first, then XOR with the plaintext.
+
+
+* Assume we were running the OFB Encryption Mode instead would your chosen plaintext attack succeed?
+
+
+  No because the encryption is used with the Key and IV first.
+
+
+* In terms of performance, would you be able to run the encryption or decryption of each block in parallel in the CBC Mode? By parallelizable we mean the execution of the encryption/decryption of the nth block does not depend on the output of the n-1th block.
+
+
+** CBC Mode Encryption: 
+
+  No, because the encryption of each block depends on the previous block.
+  
+** CBC Mode Decryption: 
+
+  No, for the same reason
+
+* How about the performance of the OFB mode? Is the encryption or decryption parallelizable?
+
+** OFB Mode Encryption: 
+  
+  Yes, because each block is independent from each other.
+  
+** OFB Mode Decryption: 
+  
+  Yes, for the same reason.
+
+
+==== Task 3 Part D: Block Cipher Padding
+
+* Why would we need one whole block of padding in the PKCS#5 padding scheme, if the message is a multiple of the block length? Provide a counter example explaining what would happen if we didn't have padding.
+
+
+  We need a whole block of padding so that we are able to tell apart the message from the padding.
+  For example if we had something like the following:
+  1010101010101001
+  Then the last byte would be interpreted as a single byte of padding, since when there is 1 byte of padding, the last byte will be 01.
+  So, we need the extra block of padding to make sure that the message is interpreted correctly.
+
+
+* Which of the two encryption modes above require padding? Can one of the encryption modes do away with padding?
+
+
+  CBC requires padding, while CFB doesn't. CFB can do away with padding because it encrypts the plaintext one bit at a time.
+  CBC needs padding since the plaintext has to be encrypted in blocks of the same length.
+
+
+==== Task 3 Part E: Chosen Ciphertext Attack
+
+* Provide the decrypted text that you have found:
+
+* Explain how you constructed your attack at a high level for two cases:
+
+** First case: Deciphering blocks up to C1
+** Deciphering the first block.
+
+* If we included padding in the OFB mode, would it be susceptible to the padding oracle attack?

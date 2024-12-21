@@ -1,0 +1,118 @@
+:lang: en
+:source-highlighter: pygments
+:icons: font
+:xrefstyle: short
+
+
+
+== https://www.cs.swarthmore.edu/~chaganti/cs88/f22/index.html[CS88] Lab-Worksheet https://www.cs.swarthmore.edu/~chaganti/cs88/f22/labs/lab3.html[Lab3: Random Number Generation]
+
+=== Task 1: Random Number Generation Done Wrong
+
+==== Part A: A Simple Random Number Generator
+
+. Run `random_time.c` multiple times and record your output and observations about 
+  the key generation process here. 
+
+
+  Current Time: 1709146220
+  Random Key: d6764bf157132d4f8d3b9b0c1dfe3919
+  Current Time: 1709146220
+  Random Key: d6764bf157132d4f8d3b9b0c1dfe3919
+  Current Time: 1709146229
+  Random Key: 2e1129a11f583ce79314c823fbc98e04
+
+  When you run random_time multiple times in quick succession, it generates the same key because the key that is generated is based on the Current Time. In   other words, each time has its own corresponding key.
+
+. Comment out `srand` in `random_time.c` and record your observations again. What is the purpose of `srand` and `time` ?
+  
+  
+  Current Time: 1709146309
+  Random Key: 67c6697351ff4aec29cdbaabf2fbe346
+  Current Time: 1709146466
+  Random Key: 67c6697351ff4aec29cdbaabf2fbe346
+
+  When you comment out srand, it generates the same key every time. Therefore, the purpose of srand is to change the output of rand based on an input         which in this case is time. Time is the seed that changes the output of rand. This makes it vulnerable because time can be predicted.
+
+==== Part B: Guessing the Key
+
+. Explain how your `random_time_attack.c` works in conjunction with `guess_key.py`. 
+  
+  
+  the for loop in random_time_attack iterates over all the possible time values from 2 hours before the time stamp to get all of the possible keys.           guess_key.py reads in every possible key and checks to see if it can successfully decypher the encypted text. 
+ 
+==== Part C: Measuring Entropy or Degree of Randomness
+
+. Why do you think a timer interrupt, alone, is not a good choice for generating random bits?
+  
+  
+  Because a timer interupt uses a regular pattern that can be predicted. Therefore, it will not provide enough randomness on its own.
+
+. Observe how the entropy changes after executing the `watch` command for the following activities:
+
+.. move your mouse
+  
+  
+  Increases the entropy by a moderate amount.
+  
+  
+.. click and point at various things with your mouse,
+  
+  
+  Clicking is faster than moving the mouse, but clicking faster doesn't cause the entropy to increase faster.
+  
+  
+.. type something
+  
+  
+  Increases the entropy at a faster rate than clicking and moving the mouse.
+  
+  
+.. read https://www.gutenberg.org/files/37106/37106-h/37106-h.htm[Little Women] online
+  
+  
+  reading the article online increases the entropy by a moderate amount.
+  
+  
+.. Save the plaintext https://www.gutenberg.org/cache/epub/37106/pg37106.txt[Little Women] and read it from file.
+  
+  
+  Saving the plaintext increases the entropy by a substiantial amount.
+
+=== Task 2: Secure Random Number Generation
+
+. Run the `cat /dev/random` command. What happens if you do not move your mouse or 
+  type anything? Then, randomly move your mouse and see whether you can observe any 
+  difference. Record your responses below. 
+  
+  When you don't move the mouse, it uses all the entropy to generate pseudo random numbers,
+  then when it runs out, it stops. When we move our mouse, more entropy gets generated at a faster rate,
+  so more numbers can be generated.
+
+. Describe how you can launch a Denial-Of-Service (DOS) attack using 
+  `/dev/random`. A Denial-Of-Service (DOS) attack is an attack that prevents the 
+  security goal of "Availability". A DOS attack prevents access to a resource -- in this case
+ your DOS attack should prevent access to `/dev/random`.
+
+
+
+  An attacker could flood the server with key requests so that it runs out of entropy to use 
+  to generate keys. This way, whenever somebody else needs a key, '/dev/random' will be unable to provide
+  it for some time.
+
+
+. Describe the output of `ent` at a high-level. Explain what the `bits-per-byte` value represents. 
+
+
+
+  The output of 'ent' is statistics about the randomness of the generated numbers. Our
+  statistics show that the numbers are close to random. 
+
+  The `bits-per-byte` value represents the unpredictability of the bytes. A value close to 8 is random. 
+  Our value of 7.999832 is very close to 8.
+
+
+. Can we still launch our brute force attacks using our new random key 
+  generator with `/dev/urandom`?
+  
+  No because it is not limited by entropy like /dev/random
